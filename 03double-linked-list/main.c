@@ -46,20 +46,22 @@ void tail_insert(Node* list, int data) {
 
     pos->next = new_node;
     new_node->prev = pos;
+
+    list->data++;
 }
 
 void delete_elem(Node* list, int data) {
-    Node* prev = list;
     Node* pos = list->next;
     while(pos) {
         if (pos->data == data) {
-            prev->next = pos->next;
-            pos->next->prev = prev;
+            pos->prev->next = pos->next;
+            pos->next->prev = pos->prev;
             free(pos);
         }
-        prev = prev->next;
         pos = pos->next;
     }
+
+    list->data--;
 }
 
 void print_list(Node *list) {
